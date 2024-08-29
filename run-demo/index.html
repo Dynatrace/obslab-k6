@@ -376,6 +376,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#view-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      View Events
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#view-dashboard" class="md-nav__link">
     <span class="md-ellipsis">
       View Dashboard
@@ -513,6 +522,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#view-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      View Events
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#view-dashboard" class="md-nav__link">
     <span class="md-ellipsis">
       View Dashboard
@@ -579,6 +597,49 @@
 <li>Press <code>ctrl + =</code> to bring up auto completion. You should see the list of ingest</li>
 </ul>
 <p><img alt="notebook showing metrics" src="../images/notebook-showing-metrics.png" /></p>
+<h2 id="view-events">View Events<a class="headerlink" href="#view-events" title="Permanent link">#</a></h2>
+<p>When the load test finished, the <a href="https://github.com/Dynatrace/obslab-k6/blob/d2e11127f3a9e7665d67ab2015c7e4a2d7599b96/k6scripts/script.js#L17" target="_blank">teardown function</a> sends a Software Delivery Lifecycle Event (SDLC) to Dynatrace.</p>
+<pre><code>// Run load with 2 virtual users for 1 minute
+export const options = {
+  vus: 2,
+  duration: '1m',
+};
+
+...
+
+export function teardown() {
+  let post_params = {
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Api-Token ${__ENV.K6_DYNATRACE_APITOKEN}`
+    },
+  };
+
+  // Send SDLC event at the end of the test
+  let payload = {
+    &quot;event.provider&quot;: &quot;k6&quot;,
+    &quot;event.type&quot;: &quot;test&quot;,
+    &quot;event.category&quot;: &quot;finished&quot;,
+    &quot;service&quot;: &quot;dummyservice&quot;,
+    &quot;duration&quot;: options.duration
+  }
+  let res = http.post(`${__ENV.K6_DYNATRACE_URL}/platform/ingest/v1/events.sdlc`, JSON.stringify(payload), post_params);
+}
+</code></pre>
+<p>Notice that the event contains metadata such as the <code>provider</code> and <code>service</code> which can be used for filtering in Dynatrace (see DQL below).</p>
+<p>This event can be used as a trigger Dynatrace for workflows, synthetic tests, the site reliability guardian and more.</p>
+<p>In Dynatrace:</p>
+<ul>
+<li>Press <code>ctrl + k</code> and search for <code>notebooks</code></li>
+<li>Open an existing notebook or create a new one</li>
+<li>Add a new <code>DQL</code> section and paste the following</li>
+</ul>
+<pre><code>fetch events
+| filter event.kind == &quot;SDLC_EVENT&quot;
+| filter event.provider == &quot;k6&quot;
+</code></pre>
+<p><img alt="sdlc event" src="../images/sdlc-event.png" /></p>
+<p>User exercise: Modify the JSON body to also send the number of Virtual Users (VUs) used to Dynatrace. Re-run the load test to see the new event.</p>
 <h2 id="view-dashboard">View Dashboard<a class="headerlink" href="#view-dashboard" title="Permanent link">#</a></h2>
 <p>Open the prebuilt dashboard you previously uploaded.</p>
 <p>Go to Dashboards (<code>ctrl + k</code> and search for <code>Dashboards</code>)</p>

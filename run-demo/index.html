@@ -560,15 +560,15 @@
 <h2 id="start-k6">Start k6<a class="headerlink" href="#start-k6" title="Permanent link">#</a></h2>
 <p>In the codespace terminal, type <code>docker ps</code> and wait until Docker is running.</p>
 <p>You should see this:</p>
-<pre><code>CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
-</code></pre>
+<div class="highlight"><pre><span></span><code>CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+</code></pre></div>
 <p>Now run k6 with the demo script. Copy and paste this as-is into the terminal window:</p>
-<pre><code>docker run \
+<div class="highlight"><pre><span></span><code>docker run \
     -e K6_DYNATRACE_URL=$DT_URL \
     -e K6_DYNATRACE_APITOKEN=$DT_K6_TOKEN \
     --mount type=bind,source=./k6scripts,target=/k6scripts hrexed/xk6-dynatrace-output:0.11 run /k6scripts/script.js \
     -o output-dynatrace
-</code></pre>
+</code></pre></div>
 <h2 id="validate-metrics">Validate Metrics<a class="headerlink" href="#validate-metrics" title="Permanent link">#</a></h2>
 <p>k6 streams metrics into Dynatrace so after about a minute, do the following to ensure metrics are reaching Dynatrace.</p>
 <p>In Dynatrace:</p>
@@ -581,10 +581,10 @@
 <p><img alt="notebook showing metrics" src="../images/notebook-showing-metrics.png" /></p>
 <h2 id="view-events">View Events<a class="headerlink" href="#view-events" title="Permanent link">#</a></h2>
 <p>When the load test finished, the <a href="https://github.com/Dynatrace/obslab-k6/blob/d2e11127f3a9e7665d67ab2015c7e4a2d7599b96/k6scripts/script.js#L17" target="_blank">teardown function</a> sends a Software Delivery Lifecycle Event (SDLC) to Dynatrace.</p>
-<pre><code>// Run load with 2 virtual users for 1 minute
+<div class="highlight"><pre><span></span><code>// Run load with 2 virtual users for 1 minute
 export const options = {
   vus: 2,
-  duration: '1m',
+  duration: &#39;1m&#39;,
 };
 
 ...
@@ -592,8 +592,8 @@ export const options = {
 export function teardown() {
   let post_params = {
     headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Api-Token ${__ENV.K6_DYNATRACE_APITOKEN}`
+      &#39;Content-Type&#39;: &#39;application/json&#39;,
+      &#39;Authorization&#39;: `Api-Token ${__ENV.K6_DYNATRACE_APITOKEN}`
     },
   };
 
@@ -607,7 +607,7 @@ export function teardown() {
   }
   let res = http.post(`${__ENV.K6_DYNATRACE_URL}/platform/ingest/v1/events.sdlc`, JSON.stringify(payload), post_params);
 }
-</code></pre>
+</code></pre></div>
 <p>Notice that the event contains metadata such as the <code>provider</code> and <code>service</code> which can be used for filtering in Dynatrace (see DQL below).</p>
 <p>This event can be used as a trigger Dynatrace for workflows, synthetic tests, the site reliability guardian and more.</p>
 <p>In Dynatrace:</p>
@@ -616,10 +616,10 @@ export function teardown() {
 <li>Open an existing notebook or create a new one</li>
 <li>Add a new <code>DQL</code> section and paste the following</li>
 </ul>
-<pre><code>fetch events
+<div class="highlight"><pre><span></span><code>fetch events
 | filter event.kind == &quot;SDLC_EVENT&quot;
 | filter event.provider == &quot;k6&quot;
-</code></pre>
+</code></pre></div>
 <p><img alt="sdlc event" src="../images/sdlc-event.png" /></p>
 <p>User exercise: Modify the JSON body to also send the number of Virtual Users (VUs) used to Dynatrace. Re-run the load test to see the new event.</p>
 <h2 id="view-dashboard">View Dashboard<a class="headerlink" href="#view-dashboard" title="Permanent link">#</a></h2>

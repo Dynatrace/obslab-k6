@@ -10,6 +10,7 @@ nav:
   - '6. Resources': resources.md
 theme:
   name: material
+  custom_dir: docs/overrides
   features:
     - content.code.copy
   palette:

@@ -1,5 +1,6 @@
-
 ## Import Dynatrace Dashboard
+
+--8<-- "snippets/bizevent-run-demo.js"
 
 While you are waiting for the environment, add the dashboard to your Dynatrace environment.
 
@@ -115,3 +116,4 @@ The demo is complete.
 
 <div class="grid cards" markdown>
 - [Click Here to Delete and Cleanup resources :octicons-arrow-right-24:](cleanup.md)
+</div>

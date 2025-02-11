@@ -1,5 +1,6 @@
 --8<-- "snippets/live-code-snippets.md"
 --8<-- "snippets/tenant-id.md"
+--8<-- "snippets/bizevent-getting-started.js"
 
 ## Gather Details: Create API Token
 

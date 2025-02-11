@@ -1,5 +1,6 @@
 # Dynatrace Observability Lab: Grafana k6 Observability
 
+--8<-- "snippets/bizevent-homepage.js"
 --8<-- "snippets/disclaimer.md"
 --8<-- "snippets/view-code.md"
 

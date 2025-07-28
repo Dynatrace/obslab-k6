@@ -51,3 +51,5 @@ markdown_extensions:
 
 plugins:
     - search
+extra_css:
+  - overrides/assets/stylesheets/extra.css

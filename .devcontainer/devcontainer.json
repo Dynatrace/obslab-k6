@@ -34,7 +34,7 @@
 			"description": "eg. live, sprint or dev. If unsure, use live."
 		},
 		  "DT_API_TOKEN": {
-	    	    "description": "Dynatrace API token with these permissions: `metrics.ingest`, `logs.ingest`, `openTelemetryTrace.ingest`, `events.ingest`"
+	    	    "description": "Dynatrace API token with these permissions: `metrics.ingest`, `openpipeline.events_sdlc`"
 		}
 	}
 }

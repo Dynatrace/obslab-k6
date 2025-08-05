@@ -3,23 +3,28 @@
 {
 	"name": "k6 + Dynatrace Demo Environment",
 
+	"image": "ubuntu:noble",
+
 	"hostRequirements": {
 		"cpus": 2
+	},
+	
+	// Enable docker in docker support
+	"features": {
+		"ghcr.io/devcontainers/features/docker-in-docker:2.12.2": {}
 	},
 
 	// Use 'postCreateCommand' to run commands after the container is created.
 	//"postCreateCommand": ".devcontainer/post-create.sh",
-	"postCreateCommand": "pip install -r /workspaces/$RepositoryName/.devcontainer/requirements.txt --break-system-packages && python3 /workspaces/$RepositoryName/environment_installer.py",
+	//"postCreateCommand": "pip install -r /workspaces/$RepositoryName/.devcontainer/requirements.txt --break-system-packages && python3 /workspaces/$RepositoryName/environment_installer.py",
+	"postCreateCommand": ".devcontainer/post-create.sh && pip install -r .devcontainer/requirements.txt --break-system-packages && python3 environment_installer.py",
 
-	// Add recommended secrets
-	// "secrets": {
-	//  	  "DT_URL": {
-	//  		"description": "Dynatrace tenant URL (no trailing slash) eg. https://abc12345.live.dynatrace.com"
-	// 	},
-	// 	  "DT_K6_TOKEN": {
-	//     	        "description": "Dynatrace API token with `metrics.ingest` and `openpipeline.events_sdlc` permissions"
-	// 	}
-	// }
+	"containerEnv": {
+		"RepositoryName": "obslab-k6",
+		"DT_ENVIRONMENT_ID": "${localEnv:DT_ENVIRONMENT_ID}",
+		"DT_ENVIRONMENT_TYPE": "${localEnv:DT_ENVIRONMENT_TYPE}",
+		"DT_API_TOKEN": "${localEnv:DT_API_TOKEN}"
+	},
 
 	"secrets": {
 	 	  "DT_ENVIRONMENT_ID": {

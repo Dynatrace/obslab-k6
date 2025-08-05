@@ -4,7 +4,6 @@ import dotenv
 
 CODESPACE_NAME = os.environ.get("CODESPACE_NAME", "")
 GITHUB_REPOSITORY = os.environ.get("GITHUB_REPOSITORY", "")
-REPOSITORY_NAME = os.environ.get("RepositoryName", "")
 
 # Install RunMe
 RUNME_CLI_VERSION = "3.10.2"

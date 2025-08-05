@@ -8,7 +8,7 @@ import json
 import hashlib
 from loguru import logger
 
-REPOSITORY_NAME = os.environ.get("RepositoryName", "")
+REPOSITORY_NAME = os.environ.get("RepositoryName", "obslab-k6")
 BASE_DIR = f"/workspaces/{REPOSITORY_NAME}"
 
 GEOLOCATION_DEV = "GEOLOCATION-0A41430434C388A9"

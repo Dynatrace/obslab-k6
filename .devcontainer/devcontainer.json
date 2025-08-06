@@ -19,6 +19,13 @@
 	//"postCreateCommand": "pip install -r /workspaces/$RepositoryName/.devcontainer/requirements.txt --break-system-packages && python3 /workspaces/$RepositoryName/environment_installer.py",
 	"postCreateCommand": ".devcontainer/post-create.sh && pip install -r .devcontainer/requirements.txt --break-system-packages && python3 environment_installer.py",
 
+	// containerEnv and secrets are equivalent
+	// containerEnv is used when running devcontainer locally
+	// eg.
+	// set DT_ENVIRONMENT_ID=abc12345
+	// devcontainer up && devcontainer open
+	// "secrets" is used by GitHub to present the user a UI form they complete
+	// In short, both blocks should stay in sync
 	"containerEnv": {
 		"RepositoryName": "obslab-k6",
 		"DT_ENVIRONMENT_ID": "${localEnv:DT_ENVIRONMENT_ID}",

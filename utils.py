@@ -43,8 +43,8 @@ COLLECTOR_WAIT_TIMEOUT_SECONDS = 30
 OPENTELEMETRY_COLLECTOR_ENDPOINT = "http://localhost:4318"
 CODESPACE_NAME = os.environ.get("CODESPACE_NAME")
 
-GITHUB_ORG_SLASH_REPOSITORY = os.environ.get("GITHUB_REPOSITORY") # eg. yourOrg/yourRepo
-GITHUB_REPO_NAME = os.environ.get("RepositoryName") # eg. mclass
+GITHUB_ORG_SLASH_REPOSITORY = os.environ.get("GITHUB_REPOSITORY", f"{REPOSITORY_NAME}-local") # eg. yourOrg/yourRepo
+GITHUB_REPO_NAME = os.environ.get("RepositoryName") # eg. yourRepo
 GITHUB_DOT_COM_REPO = f"https://github.com/{GITHUB_ORG_SLASH_REPOSITORY}.git"
 GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN = os.environ.get("GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN")
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN")

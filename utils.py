@@ -374,10 +374,6 @@ def send_startup_ping(demo_name=""):
         "codespace.name": CODESPACE_NAME
     }
 
-    logger.info(hashed_org_slash_repo)
-    logger.info(DT_ENVIRONMENT_ID)
-    logger.info(CODESPACE_NAME)
-
     resp = requests.post(
         url=url,
         headers=headers,

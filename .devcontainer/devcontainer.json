@@ -3,7 +3,7 @@
 {
 	"name": "k6 + Dynatrace Demo Environment",
 
-	"image": "ubuntu:noble",
+	"image": "ubuntu:jammy",
 
 	"hostRequirements": {
 		"cpus": 2
@@ -17,7 +17,7 @@
 	// Use 'postCreateCommand' to run commands after the container is created.
 	//"postCreateCommand": ".devcontainer/post-create.sh",
 	//"postCreateCommand": "pip install -r /workspaces/$RepositoryName/.devcontainer/requirements.txt --break-system-packages && python3 /workspaces/$RepositoryName/environment_installer.py",
-	"postCreateCommand": ".devcontainer/post-create.sh && pip install -r .devcontainer/requirements.txt --break-system-packages && python3 environment_installer.py",
+	"postCreateCommand": ".devcontainer/post-create.sh && pip install -r .devcontainer/requirements.txt && python3 environment_installer.py",
 
 	// containerEnv and secrets are equivalent
 	// containerEnv is used when running devcontainer locally

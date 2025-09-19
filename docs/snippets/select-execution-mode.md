@@ -11,6 +11,8 @@
     === "Run Locally"
         Use this option if you want to run this demo on your own machine.
 
+        :warning: M3 and M4 Macs [seem to currently have issues](https://forums.docker.com/t/docker-containers-stop-to-running-on-my-macbook-pro-m4-pro/146432){target=_blank} with Docker. We are investigating. If you have issues, choose the "Run in Cloud" option for now.
+
         To make this work, you'll need the following installed:
 
         * [Visual Studio Code](https://code.visualstudio.com/){target=_blank}
